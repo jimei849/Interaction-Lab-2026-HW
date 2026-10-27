@@ -1,0 +1,75 @@
+ :root {
+    --scroll-length: 750vh;
+    --zoom-end: 2.6;
+    --page-bg: #c4c4c4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    background: var(--page-bg);
+    scrollbar-width: none;
+  }
+  html::-webkit-scrollbar { display: none; }
+
+
+  .scroll-space { height: var(--scroll-length); }
+
+
+  .stage {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    transform-origin: 50% 50%;
+    will-change: transform;
+  }
+  .stage img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+  }
+
+  .layer-2, .layer-3, .layer-4, .layer-5 { opacity: 0; will-change: opacity; }
+
+
+  @keyframes zoom-in {
+    from { transform: scale(1); }
+    50%  { transform: scale(1.65); }
+    to   { transform: scale(var(--zoom-end)); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .stage,
+    .stage img {
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: scroll(root block);
+    }
+    .stage { animation-name: zoom-in; }
+
+
+    .layer-2 { animation-name: fade-in; animation-range: 0%  21%; }
+    .layer-3 { animation-name: fade-in; animation-range: 23% 44%; }
+    .layer-4 { animation-name: fade-in; animation-range: 46% 67%; }
+    .layer-5 { animation-name: fade-in; animation-range: 69% 90%; }
+  }
+
+
+  @supports not (animation-timeline: scroll()) {
+    .scroll-space { height: 100vh; }
+    .layer-2, .layer-3, .layer-4, .layer-5 { opacity: 1; }
+  }
+
+
+  @media (prefers-reduced-motion: reduce) {
+    :root { --zoom-end: 1; }
+  }
