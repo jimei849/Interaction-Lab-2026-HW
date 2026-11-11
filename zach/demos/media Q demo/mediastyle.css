@@ -1,0 +1,30 @@
+body{
+    background-color: yellow;
+}
+
+.outer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 80%;
+    max-width: 800px;
+    text-align: center;
+    background-color: purple;
+}
+
+/* tablet  */
+@media (min-width: 768px) {
+    body{
+        background-color: green;}
+    }
+
+/* desktop */
+@media (min-width: 1024px) {
+    body{
+        background-color: blue;}
+    }
+

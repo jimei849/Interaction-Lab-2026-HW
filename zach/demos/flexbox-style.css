@@ -1,0 +1,39 @@
+.item-child-1{
+    height: 200px;
+    background-color: rgb(162, 0, 255);
+    color: white;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    display: flex;
+    flex: 1;
+}
+
+.item-child-2{
+    height: 200px;
+    background-color: rgb(255, 162, 0);
+    color: white;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    display: flex;
+    flex: 1;
+}
+
+.item-child-1:hover{
+    background-color: rgb(255, 162, 0);
+flex: 2;
+transition: all;
+transition-duration: 300ms;
+transition-timing-function: ease-in-out; 
+}
+
+.item-parent{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    align-items: center;
+    padding: 24px;
+    background-color: rgb(0, 255, 162);
+}
