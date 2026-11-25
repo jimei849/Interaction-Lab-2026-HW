@@ -1,0 +1,195 @@
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; background: #fff; }
+
+.page {
+  --u: calc(100cqw / 1440);
+  container-type: inline-size;
+  position: relative;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  aspect-ratio: 1440 / 1024;
+  overflow: hidden;
+  background: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgba(0, 0, 0, 0.76);
+}
+
+.screen { position: absolute; inset: 0; overflow: hidden; }
+.screen--cover {
+  z-index: 2;
+  background: #fff;
+  transition: opacity 1s ease, visibility 0s linear 0s;
+}
+.page[data-view="issue"] .screen--cover {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 1s ease, visibility 0s linear 1s;
+}
+
+.bg__half {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: calc(601 * var(--u));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bg__half--top    { top: 0; }
+.bg__half--bottom { top: calc(601 * var(--u)); }
+.bg__img {
+  flex: none;
+  width: calc(601 * var(--u));
+  height: calc(1440 * var(--u));
+  max-width: none;
+  object-fit: cover;
+  opacity: 0.89;
+}
+.bg__img--top    { transform: rotate(-90deg); }
+.bg__img--bottom { transform: rotate(90deg) scaleY(-1); }
+
+.logo {
+  --dx: 0;
+  --dy: 0;
+  translate: calc(var(--dx) * var(--u)) calc(var(--dy) * var(--u));
+  cursor: grab;
+  touch-action: none;          /* let touch drag move the logo instead of scrolling */
+  user-select: none;
+  -webkit-user-select: none;
+  transition: scale 0.2s ease;
+  position: absolute;
+  margin: 0;
+  inset: 38.09% 30.95% 38.17% 30.97%;
+  container-type: size;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logo__rot {
+  display: block;
+  flex: none;
+  width: hypot(96.7949cqw, 19.6218cqh);
+  height: hypot(-3.20514cqw, 80.3782cqh);
+  transform: rotate(5.14deg);
+}
+.logo__rot svg { display: block; width: 100%; height: 100%; overflow: visible; opacity: 0.85; }
+
+.badge {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-align: center;
+  position: absolute;
+  margin: 0;
+  left: calc(1154 * var(--u));
+  top: calc(56 * var(--u));
+  width: calc(196 * var(--u));
+  height: calc(73 * var(--u));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+button.badge { cursor: pointer; transition: transform 0.3s ease; }
+button.badge:hover { transform: scale(1.05); }
+button.badge:active { transform: scale(0.98); }
+button.badge:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; border-radius: 50%; }
+.badge--issue { left: calc(1150 * var(--u)); }
+.badge__ring { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; }
+.badge__text {
+  position: relative;
+  font-size: calc(32 * var(--u));
+  text-transform: uppercase;
+  white-space: nowrap;
+  /* design centres the text at y=93.5 in a ring centred at y=92.5 */
+  transform: translateY(calc(1 * var(--u)));
+}
+
+.title {
+  position: absolute;
+  margin: 0;
+  left: calc(105 * var(--u));
+  top: calc(858 * var(--u));
+  transform: translateY(-50%);
+  width: calc(213 * var(--u));
+  font-size: calc(32 * var(--u));
+  line-height: 1.3;
+  letter-spacing: calc(-0.32 * var(--u));
+}
+
+.logo__iris, .logo__sheen { transform-box: view-box; }
+.logo__iris  { animation: logo-iris 14s linear infinite; }
+.logo__sheen { transform: skewX(-20deg) translateX(0); animation: logo-sheen 8s ease-in-out infinite; }
+
+@keyframes logo-iris {
+  from { transform: translateX(0); }
+  to   { transform: translateX(532.839px); }
+}
+@keyframes logo-sheen {
+  0%, 15%  { transform: skewX(-20deg) translateX(0); }
+  70%, 100% { transform: skewX(-20deg) translateX(760px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo__iris, .logo__sheen { animation: none; }
+  .logo__sheen { display: none; }
+}
+
+@font-face {
+  font-family: "Delicious";
+  src: local("Delicious"), local("Delicious Regular"),
+       url("assets/fonts/Delicious-Regular.woff2") format("woff2"),
+       url("assets/fonts/Delicious-Regular.otf") format("opentype");
+  font-display: swap;
+}
+
+.headline {
+  position: absolute;
+  margin: 0;
+  left: calc(967 * var(--u));
+  top: calc(425.5 * var(--u));
+  transform: translate(-50%, -50%);
+  width: calc(644 * var(--u));
+  text-align: center;
+  white-space: nowrap;
+  font: 400 calc(96 * var(--u)) / 0.76295 "Delicious", "Arial Rounded MT Bold", "Arial Black", Arial, sans-serif;
+  letter-spacing: calc(-1.92 * var(--u));
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.info__title, .info__body {
+  position: absolute;
+  margin: 0;
+  font-size: calc(16 * var(--u));
+  line-height: 1.3;
+  letter-spacing: calc(-0.16 * var(--u));
+  color: #000;
+  white-space: nowrap;
+}
+.info__title { left: calc(104 * var(--u)); top: calc(136.5 * var(--u)); transform: translateY(-50%); }
+.info__body  { left: calc(157 * var(--u)); top: calc(178.5 * var(--u)); transform: translateY(-50%); }
+
+.issue__texture {
+  position: absolute;
+  left: calc(-50 * var(--u));
+  top: 0;
+  width: calc(1541 * var(--u));
+  height: calc(1024 * var(--u));
+  opacity: 0.33;
+  transform: scaleX(-1);   /* design: rotate 180° + flip Y */
+  pointer-events: none;
+}
+.issue__texture img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+@media (prefers-reduced-motion: reduce) {
+  .screen--cover, .page[data-view="issue"] .screen--cover { transition-duration: 0.01s, 0s; }
+  button.badge { transition: none; }
+}
+
+.logo.is-dragging { cursor: grabbing; scale: 1.03; }
+.logo:focus-visible { outline: 2px dashed rgba(0, 0, 0, 0.5); outline-offset: 6px; }
+@media (prefers-reduced-motion: reduce) { .logo { transition: none; } }

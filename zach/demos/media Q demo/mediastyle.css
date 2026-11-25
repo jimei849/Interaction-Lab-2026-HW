@@ -16,6 +16,8 @@ body{
     background-color: purple;
 }
 
+
+
 /* tablet  */
 @media (min-width: 768px) {
     body{
@@ -28,3 +30,8 @@ body{
         background-color: blue;}
     }
 
+    /* wide desktop  */
+@media (min-width: 1440px) {
+    body{
+        background-color: red;}
+    }
